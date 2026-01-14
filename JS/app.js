@@ -64,13 +64,13 @@ function showUpdateReadyIndicator() {
   );
 }
 
-let dots = 0;
+/*let dots = 0;
 setInterval(() => {
   const el = document.getElementById("sw-updating");
   if (!el) return;
   dots = (dots + 1) % 4;
   el.textContent = "⬇️ Updating app" + ".".repeat(dots);
-}, 500);
+}, 500);*/
 
 navigator.serviceWorker.register("/service-worker.js").then(reg => {
   reg.onupdatefound = () => {
@@ -2344,6 +2344,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
