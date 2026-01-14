@@ -211,8 +211,8 @@ const APP_SHELL = [
   "/Images/A45.jpg",
 
   // E
-  "/Images/E1.jpg",
-  "/Images/E2.jpg",
+  "/Images/D7.jpg",
+  "/Images/D8.jpg",
 
   //w
   "/Images/w1.jpg",
@@ -286,6 +286,7 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
 
