@@ -78,7 +78,8 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
     newWorker.onstatechange = () => {
       if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
         showSmartNotification(
-          "New version installed."
+          "New version installed.",
+                "App Refreshed."
         );
         newWorker.postMessage("SKIP_WAITING");
       }
@@ -2344,6 +2345,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
