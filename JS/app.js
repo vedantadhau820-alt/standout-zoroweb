@@ -60,7 +60,7 @@ function hideUpdatingIndicator() {
 function showUpdateReadyIndicator() {
   showSmartNotification(
     "Update Ready",
-    "New version downloaded. Tap to refresh."
+    "New version downloaded."
   );
 }
 
@@ -78,8 +78,7 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
     newWorker.onstatechange = () => {
       if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
         showSmartNotification(
-          "Update Available",
-          "New version installed. App refreshed."
+          "New version installed."
         );
         newWorker.postMessage("SKIP_WAITING");
       }
@@ -2345,6 +2344,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
