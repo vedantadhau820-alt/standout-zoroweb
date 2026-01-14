@@ -4,38 +4,6 @@
   window.cardCatalog = [];
         }
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js").then(reg => {
-
-    reg.addEventListener("updatefound", () => {
-      const sw = reg.installing;
-      if (!sw) return;
-
-      showUpdatingIndicator(); // 🔥 show immediately
-
-      sw.addEventListener("statechange", () => {
-        if (sw.state === "installed") {
-          if (navigator.serviceWorker.controller) {
-            showUpdateReadyIndicator();
-          }
-        }
-      });
-    });
-
-    // 🔥 Listen for activation message
-    navigator.serviceWorker.addEventListener("message", event => {
-      if (event.data?.type === "SW_ACTIVATED") {
-        hideUpdatingIndicator();
-      }
-    });
-
-    // 🔥 Safety fallback (VERY IMPORTANT)
-    setTimeout(() => {
-      hideUpdatingIndicator();
-    }, 15000); // 15 seconds max
-  });
-}
-
 
 navigator.serviceWorker.register("/service-worker.js").then(reg => {
   reg.onupdatefound = () => {
@@ -53,43 +21,7 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
 });
 
 
-function showUpdateNotification() {
-  const bar = document.createElement("div");
 
-  bar.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #111827;
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 10px;
-    z-index: 99999;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,.4);
-  `;
-
-  bar.innerHTML = `
-    <span>🚀 New update available</span>
-    <button style="
-      background:#3B82F6;
-      border:none;
-      color:white;
-      padding:6px 12px;
-      border-radius:6px;
-      cursor:pointer;
-    ">Update</button>
-  `;
-
-  bar.querySelector("button").onclick = () => {
-    location.reload();
-  };
-
-  document.body.appendChild(bar);
-}
 
 let currentMarketplaceFilter = "ALL";
 
@@ -2310,6 +2242,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
