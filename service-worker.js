@@ -254,35 +254,25 @@ self.addEventListener("install", event => {
    ACTIVATE
 =========================== */
 self.addEventListener("activate", event => {
-  console.log("🟢 SW activating");
-
   event.waitUntil(
     (async () => {
       const keys = await caches.keys();
-
-      // Delete ONLY old app caches
       await Promise.all(
-        keys.map(key => {
-          if (key !== APP_CACHE && key !== MEDIA_CACHE) {
-            return caches.delete(key);
-          }
-        })
+        keys.map(k => k !== CACHE_NAME && caches.delete(k))
       );
 
-      // Notify all open tabs
       const clients = await self.clients.matchAll({
         includeUncontrolled: true
       });
 
       clients.forEach(client => {
-        client.postMessage({ type: "SW_UPDATED" });
+        client.postMessage({ type: "SW_ACTIVATED" });
       });
     })()
   );
 
   self.clients.claim();
 });
-
 /* ===========================
    FETCH (CACHE FIRST)
 =========================== */
@@ -297,6 +287,7 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
 
