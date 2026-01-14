@@ -10,6 +10,7 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
     const newWorker = reg.installing;
     newWorker.onstatechange = () => {
       if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+        showUpdateBanner();
         showSmartNotification(
           "New version installed.",
           "App Refreshed."
@@ -20,6 +21,46 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
   };
 });
 
+function showUpdateBanner() {
+  if (document.getElementById("update-banner")) return;
+
+  const banner = document.createElement("div");
+  banner.id = "update-banner";
+
+  banner.innerHTML = `
+    <span>🚀 App updated successfully</span>
+    <button>Reload</button>
+  `;
+
+  banner.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg,#2563eb,#3b82f6);
+    color: white;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100000
+    font-size: 14px;
+  `;
+
+  banner.querySelector("button").style.cssText = `
+    background: white;
+    color: #2563eb;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+  `;
+
+  banner.querySelector("button").onclick = () => location.reload();
+
+  document.body.appendChild(banner);
+}
 
 
 
@@ -2242,6 +2283,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
