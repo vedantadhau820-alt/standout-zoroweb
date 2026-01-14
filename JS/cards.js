@@ -702,7 +702,7 @@ image: "Images/SS14.jpg" },
   title: "Hawks",
   quote: "I want an easy life.",
   grade: "C",
-  cost: 63,
+  cost: 53,
   image: "Images/C12.jpg"
 },
 
