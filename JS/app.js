@@ -4,73 +4,7 @@
   window.cardCatalog = [];
         }
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js").then(reg => {
 
-    // 🔥 Update found → downloading started
-    reg.addEventListener("updatefound", () => {
-      const newWorker = reg.installing;
-      if (!newWorker) return;
-
-      showUpdatingIndicator(); // 👈 IMMEDIATE feedback
-
-      newWorker.addEventListener("statechange", () => {
-        if (newWorker.state === "installed") {
-          if (navigator.serviceWorker.controller) {
-            showUpdateReadyIndicator();
-          }
-        }
-      });
-    });
-
-    // 🔥 New SW takes control
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      hideUpdatingIndicator();
-    });
-  });
-}
-
-function showUpdatingIndicator() {
-  if (document.getElementById("sw-updating")) return;
-
-  const bar = document.createElement("div");
-  bar.id = "sw-updating";
-
-  bar.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #f59e0b;
-    color: #000;
-    padding: 6px;
-    text-align: center;
-    font-size: 13px;
-    z-index: 99999;
-  `;
-
-  bar.textContent = "⬇️ Updating app in background…";
-  document.body.appendChild(bar);
-}
-
-function hideUpdatingIndicator() {
-  document.getElementById("sw-updating")?.remove();
-}
-
-function showUpdateReadyIndicator() {
-  showSmartNotification(
-    "Update Ready",
-    "New version downloaded."
-  );
-}
-
-let dots = 0;
-setInterval(() => {
-  const el = document.getElementById("sw-updating");
-  if (!el) return;
-  dots = (dots + 1) % 4;
-  el.textContent = "⬇️ Updating app" + ".".repeat(dots);
-}, 500);
 
 navigator.serviceWorker.register("/service-worker.js").then(reg => {
   reg.onupdatefound = () => {
@@ -2345,6 +2279,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
