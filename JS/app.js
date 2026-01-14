@@ -4,6 +4,37 @@
   window.cardCatalog = [];
         }
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js").then(reg => {
+
+    reg.addEventListener("updatefound", () => {
+      const sw = reg.installing;
+      if (!sw) return;
+
+      showUpdatingIndicator(); // 🔥 show immediately
+
+      sw.addEventListener("statechange", () => {
+        if (sw.state === "installed") {
+          if (navigator.serviceWorker.controller) {
+            showUpdateReadyIndicator();
+          }
+        }
+      });
+    });
+
+    // 🔥 Listen for activation message
+    navigator.serviceWorker.addEventListener("message", event => {
+      if (event.data?.type === "SW_ACTIVATED") {
+        hideUpdatingIndicator();
+      }
+    });
+
+    // 🔥 Safety fallback (VERY IMPORTANT)
+    setTimeout(() => {
+      hideUpdatingIndicator();
+    }, 15000); // 15 seconds max
+  });
+}
 
 
 navigator.serviceWorker.register("/service-worker.js").then(reg => {
@@ -2279,6 +2310,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
