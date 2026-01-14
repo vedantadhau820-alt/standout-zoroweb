@@ -12,7 +12,7 @@ if ("serviceWorker" in navigator) {
       const newWorker = reg.installing;
       if (!newWorker) return;
 
-      //showUpdatingIndicator(); // 👈 IMMEDIATE feedback
+      showUpdatingIndicator(); // 👈 IMMEDIATE feedback
 
       newWorker.addEventListener("statechange", () => {
         if (newWorker.state === "installed") {
@@ -25,7 +25,7 @@ if ("serviceWorker" in navigator) {
 
     // 🔥 New SW takes control
     navigator.serviceWorker.addEventListener("controllerchange", () => {
-      //hideUpdatingIndicator();
+      hideUpdatingIndicator();
     });
   });
 }
@@ -64,13 +64,13 @@ function showUpdateReadyIndicator() {
   );
 }
 
-/*let dots = 0;
+let dots = 0;
 setInterval(() => {
   const el = document.getElementById("sw-updating");
   if (!el) return;
   dots = (dots + 1) % 4;
   el.textContent = "⬇️ Updating app" + ".".repeat(dots);
-}, 500);*/
+}, 500);
 
 navigator.serviceWorker.register("/service-worker.js").then(reg => {
   reg.onupdatefound = () => {
@@ -79,7 +79,7 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
       if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
         showSmartNotification(
           "New version installed.",
-                "App Refreshed."
+          "App Refreshed."
         );
         newWorker.postMessage("SKIP_WAITING");
       }
@@ -2345,6 +2345,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
