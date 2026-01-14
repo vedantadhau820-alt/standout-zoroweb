@@ -21,6 +21,7 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
   };
 });
 
+
 function showUpdateBanner() {
   if (document.getElementById("update-banner")) return;
 
@@ -2283,6 +2284,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
