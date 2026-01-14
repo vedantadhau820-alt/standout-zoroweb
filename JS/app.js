@@ -12,7 +12,7 @@ if ("serviceWorker" in navigator) {
       const newWorker = reg.installing;
       if (!newWorker) return;
 
-      showUpdatingIndicator(); // 👈 IMMEDIATE feedback
+      //showUpdatingIndicator(); // 👈 IMMEDIATE feedback
 
       newWorker.addEventListener("statechange", () => {
         if (newWorker.state === "installed") {
@@ -25,7 +25,7 @@ if ("serviceWorker" in navigator) {
 
     // 🔥 New SW takes control
     navigator.serviceWorker.addEventListener("controllerchange", () => {
-      hideUpdatingIndicator();
+      //hideUpdatingIndicator();
     });
   });
 }
@@ -2344,6 +2344,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
