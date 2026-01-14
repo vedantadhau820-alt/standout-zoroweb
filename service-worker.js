@@ -1,4 +1,5 @@
-const CACHE_NAME = "standout-v2.1.19";
+const CACHE_NAME = "standout-v2.1.20";
+const MEDIA_CACHE = "standout-media";     // NEVER versioned
 
 const APP_SHELL = [
   "/",                  // IMPORTANT
@@ -17,10 +18,13 @@ const APP_SHELL = [
   "/CSS/timer.css",
   "/CSS/account.css",
 
-  
+];
 
-  // Assets
-  "/icon.jpeg",
+/* ===========================
+   MEDIA FILES (STABLE)
+   ➜ Add ONLY when NEW files appear
+=========================== */
+const MEDIA_FILES = [
   "/Music/Complete.mp3",
   "/Music/Achievements.mp3",
   "/Music/m1.mp3",
@@ -29,8 +33,8 @@ const APP_SHELL = [
   "/Music/m4.mp3",
   "/Music/m5.mp3",
   "/Music/m6.mp3",
-  
-    // SS
+
+      // SS
   "/Images/SS1.jpg",
   "/Images/SS2.jpg",
   "/Images/SS3.jpg",
@@ -220,46 +224,50 @@ const APP_SHELL = [
 ];
 
 /* ===========================
-   INSTALL → CACHE APP SHELL
+   INSTALL
 =========================== */
 self.addEventListener("install", event => {
-  console.log("🟡 SW installing...");
+  console.log("🟡 SW installing");
 
   event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      try {
-        await cache.addAll(APP_SHELL);
-        console.log("✅ App shell cached");
-      } catch (err) {
-        console.error("❌ Cache failed:", err);
-        throw err; // VERY IMPORTANT
-      }
-    })
+    Promise.all([
+      // Cache app shell (versioned)
+      caches.open(APP_CACHE).then(cache => {
+        console.log("📦 Caching app shell");
+        return cache.addAll(APP_SHELL);
+      }),
+
+      // Cache media ONCE (never deleted)
+      caches.open(MEDIA_CACHE).then(cache => {
+        console.log("🎵 Caching media files");
+        return cache.addAll(MEDIA_FILES);
+      })
+    ])
   );
 
   self.skipWaiting();
 });
 
-self.addEventListener("message", event => {
-  if (event.data === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
 /* ===========================
-   ACTIVATE → CLEAN OLD CACHES
+   ACTIVATE
 =========================== */
 self.addEventListener("activate", event => {
   console.log("🟢 SW activating");
 
   event.waitUntil(
     (async () => {
-      // clean old caches
       const keys = await caches.keys();
+
+      // Delete ONLY old app caches
       await Promise.all(
-        keys.map(k => k !== CACHE_NAME && caches.delete(k))
+        keys.map(key => {
+          if (key !== APP_CACHE && key !== MEDIA_CACHE) {
+            return caches.delete(key);
+          }
+        })
       );
 
-      // notify ALL clients
+      // Notify all open tabs
       const clients = await self.clients.matchAll({
         includeUncontrolled: true
       });
@@ -274,7 +282,7 @@ self.addEventListener("activate", event => {
 });
 
 /* ===========================
-   FETCH → CACHE STRATEGY
+   FETCH (CACHE FIRST)
 =========================== */
 self.addEventListener("fetch", event => {
   event.respondWith(
@@ -287,30 +295,4 @@ self.addEventListener("fetch", event => {
     })
   );
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
