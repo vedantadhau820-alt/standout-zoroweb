@@ -11,10 +11,6 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
     newWorker.onstatechange = () => {
       if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
         showUpdateBanner(newWorker);
-        showSmartNotification(
-          "New version installed.",
-          "App Updated."
-        );
         newWorker.postMessage("SKIP_WAITING");
       }
     };
@@ -38,7 +34,7 @@ function showUpdateBanner() {
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(90deg,#2563eb,#3b82f6);
+    background: #f59e0b;
     color: white;
     padding: 10px 14px;
     display: flex;
@@ -2284,6 +2280,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
