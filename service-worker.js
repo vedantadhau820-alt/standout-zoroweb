@@ -1,4 +1,4 @@
-const CACHE_NAME = "standout-v2.1.15";
+const CACHE_NAME = "standout-v2.1.16";
 
 const APP_SHELL = [
   "/",                  // IMPORTANT
@@ -287,6 +287,7 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
 
