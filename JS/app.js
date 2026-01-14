@@ -5,10 +5,11 @@
         }
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.addEventListener("message", event => {
-    if (event.data?.type === "SW_UPDATED") {
-      showUpdateNotification();
-    }
+  navigator.serviceWorker.register("/service-worker.js");
+
+  // 🔥 Detect when NEW SW takes control
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    showUpdateNotification();
   });
 }
 
@@ -2285,6 +2286,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
