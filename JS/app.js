@@ -41,7 +41,7 @@ function showUpdatingIndicator() {
     top: 0;
     left: 0;
     right: 0;
-    background: #f59e0b;
+    background: #3B82F6;
     color: #000;
     padding: 6px;
     text-align: center;
@@ -2344,6 +2344,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
