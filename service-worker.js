@@ -1,4 +1,4 @@
-const CACHE_NAME = "standout-v2.1.8";
+const CACHE_NAME = "standout-v2.1.9";
 
 const APP_SHELL = [
   "/",                  // IMPORTANT
@@ -222,11 +222,20 @@ const APP_SHELL = [
    INSTALL → CACHE APP SHELL
 =========================== */
 self.addEventListener("install", event => {
+  console.log("🟡 SW installing...");
+
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(APP_SHELL);
+    caches.open(CACHE_NAME).then(async cache => {
+      try {
+        await cache.addAll(APP_SHELL);
+        console.log("✅ App shell cached");
+      } catch (err) {
+        console.error("❌ Cache failed:", err);
+        throw err; // VERY IMPORTANT
+      }
     })
   );
+
   self.skipWaiting();
 });
 
@@ -277,6 +286,7 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
 
