@@ -3,7 +3,7 @@ window.cardCatalog = [
 
 {
   id: "blackbeard",
-  title: "Marshall D. Teach Test",
+  title: "Marshall D. Teach Tet",
   quote: "People’s dreams never end!",
   grade: "SS",
   cost: 186,
