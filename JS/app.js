@@ -424,7 +424,7 @@ function buyCard(cardId) {
             });
         }
 
-        const GRADE_ORDER = ["E", "D", "C", "B", "A", "w", "S", "SS"];
+        const GRADE_ORDER = ["E", "D", "C", "B", "A", "X", "S", "SS", "w"];
 
 function gradeRank(grade) {
   return GRADE_ORDER.indexOf(grade) + 1;
@@ -2285,6 +2285,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
