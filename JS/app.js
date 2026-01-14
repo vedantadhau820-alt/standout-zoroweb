@@ -27,6 +27,7 @@ navigator.serviceWorker.register("/service-worker.js").then(reg => {
   };
 });
 
+
 function showUpdateNotification() {
   const bar = document.createElement("div");
 
@@ -2284,6 +2285,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
