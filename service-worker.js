@@ -18,23 +18,7 @@ const APP_SHELL = [
   "/CSS/timer.css",
   "/CSS/account.css",
 
-];
-
-/* ===========================
-   MEDIA FILES (STABLE)
-   ➜ Add ONLY when NEW files appear
-=========================== */
-const MEDIA_FILES = [
-  "/Music/Complete.mp3",
-  "/Music/Achievements.mp3",
-  "/Music/m1.mp3",
-  "/Music/m2.mp3",
-  "/Music/m3.mp3",
-  "/Music/m4.mp3",
-  "/Music/m5.mp3",
-  "/Music/m6.mp3",
-
-      // SS
+  // SS
   "/Images/SS1.jpg",
   "/Images/SS2.jpg",
   "/Images/SS3.jpg",
@@ -221,6 +205,24 @@ const MEDIA_FILES = [
 
   //w
   "/Images/w1.jpg",
+
+];
+
+/* ===========================
+   MEDIA FILES (STABLE)
+   ➜ Add ONLY when NEW files appear
+=========================== */
+const MEDIA_FILES = [
+  "/Music/Complete.mp3",
+  "/Music/Achievements.mp3",
+  "/Music/m1.mp3",
+  "/Music/m2.mp3",
+  "/Music/m3.mp3",
+  "/Music/m4.mp3",
+  "/Music/m5.mp3",
+  "/Music/m6.mp3",
+
+        
 ];
 
 /* ===========================
@@ -295,6 +297,7 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
 
