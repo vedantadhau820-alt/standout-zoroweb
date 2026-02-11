@@ -201,3 +201,17 @@
    border: none;
    focus: none;
 }
+
+.achieve-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.achieve-btn:disabled {
+    background: gray;
+    cursor: default;
+}
