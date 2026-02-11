@@ -451,7 +451,7 @@ function buyCard(cardId) {
 
 /* Tools ============= */
 
-function renderTools() {
+/*function renderTools() {
     const shop = document.getElementById("toolShop");
     if (!shop) return;
 
@@ -549,7 +549,7 @@ function openMarketplace() {
 }
 
 
-
+*/
         const GRADE_ORDER = ["E", "D", "C", "B", "A", "X", "S", "SS", "w"];
 
 function gradeRank(grade) {
@@ -2517,6 +2517,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
