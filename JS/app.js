@@ -524,7 +524,15 @@ function activateTool(tool) {
 }
 
 
+function openTools() {
+    document.getElementById("marketplace-cards").style.display = "none";
+    document.getElementById("tools").style.display = "block";
+}
 
+function openMarketplace() {
+    document.getElementById("tools").style.display = "none";
+    document.getElementById("marketplace-cards").style.display = "block";
+}
 
 
 
@@ -2495,6 +2503,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
