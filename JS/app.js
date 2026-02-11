@@ -1490,7 +1490,7 @@ function checkMissedDeadlines() {
 
                 if(completedMissions < 0){
                         
-                completeMissions -= 4; 
+                completedMissions -= 4; 
 localStorage.setItem("completedMissions", completedMissions);
 document.getElementById("missionCounter").textContent = completedMissions;  
                 }
@@ -2320,4 +2320,5 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
