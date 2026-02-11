@@ -449,6 +449,85 @@ function buyCard(cardId) {
             });
         }
 
+/* Tools ============= */
+
+function renderTools() {
+    const shop = document.getElementById("toolShop");
+    if (!shop) return;
+
+    shop.innerHTML = "";
+
+    window.toolCatalog.forEach(tool => {
+        const div = document.createElement("div");
+        div.className = "tool-card";
+
+        const canBuy = completedMissions >= tool.cost;
+
+        div.innerHTML = `
+            <div class="tool-icon">${tool.icon}</div>
+            <h3>${tool.title}</h3>
+            <p>${tool.description}</p>
+            <button class="use-btn" ${!canBuy ? "disabled" : ""}>${tool.cost} pts</button>
+        `;
+
+        div.querySelector(".use-btn").onclick = () => buyTool(tool);
+
+        shop.appendChild(div);
+    });
+}
+
+function buyTool(tool) {
+    if (completedMissions < tool.cost) {
+        customAlert("Not enough Improvement Points.");
+        return;
+    }
+
+    customConfirm(
+      `Unlock "${tool.title}" for ${tool.cost} points?`,
+      () => {
+        completedMissions -= tool.cost;
+        document.getElementById("missionCounter").textContent = completedMissions;
+        localStorage.setItem("completedMissions", completedMissions);
+
+        activateTool(tool);
+
+        renderTools();
+      }
+    );
+}
+
+function activateTool(tool) {
+    switch (tool.id) {
+
+        case "skip_day":
+            skipDayCheat();
+            showSmartNotification("Day Skipped", "You successfully skipped today!");
+            break;
+
+        case "boost_points_5":
+            completedMissions += 5;
+            localStorage.setItem("completedMissions", completedMissions);
+            document.getElementById("missionCounter").textContent = completedMissions;
+            showSmartNotification("+5 Points", "Improvement Points added!");
+            break;
+
+        case "double_rewards":
+            localStorage.setItem("doubleRewardsUntil", Date.now() + 86400000);
+            showSmartNotification("2× Boost Active", "Double rewards for 24 hours.");
+            break;
+
+        case "auto_complete":
+            autoCompleteRandomMission();
+            showSmartNotification("Mission Auto-Completed", "Instant completion applied.");
+            break;
+    }
+}
+
+
+
+
+
+
         const GRADE_ORDER = ["E", "D", "C", "B", "A", "X", "S", "SS", "w"];
 
 function gradeRank(grade) {
@@ -2416,6 +2495,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
