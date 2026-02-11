@@ -1389,7 +1389,7 @@ document.getElementById("countdownDateTime").min = now;
 
 
 
-        setInterval(checkMissedDeadlines, 60000); // check every 1 minute
+        setInterval(checkMissedDeadlines, 1000); // check every 1 minute
 
         function updateMission() {
     const li = window.missionBeingEdited;
@@ -2310,6 +2310,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
