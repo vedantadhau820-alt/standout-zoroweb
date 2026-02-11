@@ -1,4 +1,4 @@
-const CACHE_NAME = "standout-v2.1.4";
+const CACHE_NAME = "standout-v2.1.5";
 //const MEDIA_CACHE = "standout-media";     // NEVER versioned
 
 const APP_SHELL = [
@@ -8,6 +8,7 @@ const APP_SHELL = [
   "/manifest.json",
   "/JS/cards.js",
   "/JS/app.js",
+  "/JS/tools.js",
 
   // CSS
   "/CSS/base.css",
@@ -302,6 +303,7 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
 
 
