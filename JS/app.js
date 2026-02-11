@@ -1490,14 +1490,14 @@ function checkMissedDeadlines() {
 
                 if(completeMissions < 0){
                         
-                completedMissions -= 4; 
-localStorage.setItem("completedMissions", completedMissions);
-document.getElementById("missionCounter").textContent = completedMissions;  
+                completeMissions -= 4; 
+localStorage.setItem("completeMissions", completeMissions);
+document.getElementById("missionCounter").textContent = completeMissions;  
                 }
                 else{
 
-           completedMissions = 0;
-localStorage.setItem("completedMissions", 0);
+           completeMissions = 0;
+localStorage.setItem("completeMissions", 0);
 document.getElementById("missionCounter").textContent = "0";
 
                 }
@@ -2320,61 +2320,3 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
