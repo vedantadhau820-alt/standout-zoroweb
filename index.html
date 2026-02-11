@@ -136,25 +136,29 @@
 
 
       <!-- Filter Tabs -->
-        <div class="card-filters">
-            <button class="active" onclick="openMarketplace()">Cards</button>
-    <button onclick="openTools()">Tools</button>
-            <button class="active">All</button>
-            <button>w</button>
-            <button>SS</button>
-            <button>S</button>
-            <button>X</button>
-            <button>A</button>
-            <button>B</button>
-            <button>C</button>
-            <button>D</button>
-            <!--<button>E</button>-->
-        </div>
+        <!-- NEW TOGGLE BAR -->
+<div class="card-filters" id="toolToggleBar">
+    <button id="tabCards" class="active" onclick="openMarketplace()">Cards</button>
+    <button id="tabTools" onclick="openTools()">Tools</button>
+</div>
+
+<!-- YOUR ORIGINAL GRADE FILTERS (UNCHANGED) -->
+<div class="card-filters" id="gradeFilterBar">
+    <button class="active">All</button>
+    <button>w</button>
+    <button>SS</button>
+    <button>S</button>
+    <button>X</button>
+    <button>A</button>
+    <button>B</button>
+    <button>C</button>
+    <button>D</button>
+</div>
         <!-- Card Grid -->
         <div class="card-grid" id="cardShop"></div>
     </section>
 
-    <section id="tools">
+    <section id="tools" style="display:none;">
   <h2>Tools & Boosters</h2>
   <p class="marketplace-sub">Use your Improvement Points to unlock powerful utilities.</p>
 
