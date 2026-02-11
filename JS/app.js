@@ -1868,7 +1868,26 @@ function loadAchievements() {
         container.appendChild(div);
     });
 }
-        function updateGoalTimers() {
+
+function launchConfetti() {
+    for (let i = 0; i < 25; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        document.body.appendChild(c);
+
+        const size = Math.random() * 8 + 4;
+        c.style.width = size + "px";
+        c.style.height = size + "px";
+        c.style.left = Math.random() * window.innerWidth + "px";
+        c.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+        c.style.animationDuration = (Math.random() * 1 + 0.7) + "s";
+
+        setTimeout(() => c.remove(), 1200);
+    }
+}
+
+function updateGoalTimers() {
             const goals = document.querySelectorAll("#goal-list .goal");
 
             goals.forEach(goal => {
@@ -2397,6 +2416,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
