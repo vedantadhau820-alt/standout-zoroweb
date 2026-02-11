@@ -1714,8 +1714,8 @@ document.getElementById("missionCounter").textContent = "0";
                 const name = skill.querySelector("strong").textContent.trim();
 
                 if (name === skillName.trim()) {
-                    let xp = parseInt(skill.dataset.xp || "0");
-                    xp = Math.min(100, xp + amount);
+                    let xp = parseInt(skill.dataset.xp);
+                    xp = xp + amount;
 
                     skill.dataset.xp = xp;
                     skill.setAttribute("data-xp", xp);
@@ -1723,6 +1723,7 @@ document.getElementById("missionCounter").textContent = "0";
                     skill.querySelector(".xp-count").textContent = xp;
                     skill.querySelector(".progress-bar").style.width = xp + "%";
 
+                    checkSkillLevelUp(skill);
                     saveData(); // 🔥 force persist
                 }
             });
@@ -1770,25 +1771,29 @@ document.getElementById("missionCounter").textContent = "0";
            6. SKILLS MODULE
         ========================================================= */
         function addSkill() {
-            const skill = document.getElementById("skillInput").value;
-            if (!skill) return closeModal();
+    const skill = document.getElementById("skillInput").value;
+    if (!skill) return closeModal();
 
-            const div = document.createElement("div");
-            div.className = "skill show";
-            div.dataset.xp = "0"; // 🔥 XP starts at 0
+    const div = document.createElement("div");
+    div.className = "skill show";
+    div.dataset.xp = "0";
+    div.dataset.level = "0";
 
-            div.innerHTML = `
+    div.innerHTML = `
         <strong>${skill}</strong>
+        <span class="skill-level">Level 0</span>
+
         <div class="progress">
             <div class="progress-bar" style="width:0%"></div>
         </div>
+
         <small>XP: <span class="xp-count">0</span></small>
         <button class="remove-btn" onclick="deleteSkillDirect(this)">Remove</button>
-        `;
+    `;
 
-            document.getElementById("skill-list").appendChild(div);
-            saveData();
-            closeModal();
+    document.getElementById("skill-list").appendChild(div);
+    saveData();
+    closeModal();
         }
 
         function deleteSkillDirect(btn) {
@@ -1827,6 +1832,32 @@ document.getElementById("missionCounter").textContent = "0";
         //     saveData();
         //     closeModal();
         // }
+
+       function checkSkillLevelUp(skillDiv) {
+    let xp = parseInt(skillDiv.dataset.xp);
+    let levelTag = skillDiv.querySelector(".skill-level");
+
+    if (!levelTag) {
+        console.log("❌ No level tag found. Adding automatically...");
+        levelTag = document.createElement("span");
+        levelTag.className = "skill-level";
+        levelTag.textContent = "Level 0";
+        skillDiv.insertBefore(levelTag, skillDiv.querySelector(".progress"));
+    }
+
+    let level = parseInt(levelTag.textContent.replace("Level ", ""));
+
+    while (xp >= 100) {
+        xp -= 100;
+        level++;
+    }
+
+    skillDiv.dataset.xp = xp;
+    levelTag.textContent = "Level " + level;
+
+    skillDiv.querySelector(".xp-count").textContent = xp;
+    skillDiv.querySelector(".progress-bar").style.width = xp + "%";
+       }
 
         function deleteSkill(skillName) {
             const skills = document.querySelectorAll("#skill-list .skill");
@@ -2517,6 +2548,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
