@@ -1779,6 +1779,7 @@ document.getElementById("missionCounter").textContent = "0";
         <div class="goal-subrow">
             <span class="goal-deadline">${formattedDeadline}</span>
             <span class="goal-overdue"></span>
+            <button class="achieve-btn" onclick="markGoalAchieved(this)">Achieved</button>
             <button class="remove-btn" onclick="removeGoal(this)">Remove</button>
         </div>
 
@@ -1792,6 +1793,68 @@ document.getElementById("missionCounter").textContent = "0";
             closeModal();
 
         }
+
+        function markGoalAchieved(btn) {
+    const goalDiv = btn.closest(".goal");
+    if (!goalDiv || goalDiv.dataset.achieved === "true") return;
+
+    const title = goalDiv.querySelector(".goal-title").textContent;
+    const achievedDate = new Date().toLocaleDateString([], {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    });
+
+    // UI Update
+    goalDiv.dataset.achieved = "true";
+    goalDiv.style.opacity = "0.6";
+    goalDiv.style.textDecoration = "line-through";
+    btn.disabled = true;
+    btn.textContent = "Completed";
+
+    // Store Achievement
+    const achievement = {
+        title: title,
+        date: achievedDate,
+        type: "goal"
+    };
+
+    let logs = JSON.parse(localStorage.getItem("achievements")) || [];
+    logs.push(achievement);
+    localStorage.setItem("achievements", JSON.stringify(logs));
+
+    // Show popup
+    pushNotification("Goal Achieved 🎯", `"${title}" completed on ${achievedDate}`);
+
+    // Also show in smart popup
+    showSmartNotify("Goal Achieved!", `${title} - ${achievedDate}`);
+
+    saveData();
+        }
+
+function loadAchievements() {
+    const container = document.getElementById("achievementsViewer");
+    container.innerHTML = "";
+
+    const logs = JSON.parse(localStorage.getItem("achievements")) || [];
+
+    logs.forEach(a => {
+        const div = document.createElement("div");
+        div.className = "achievement-card";
+        div.style.cssText = `
+            background:#111; 
+            color:white; 
+            padding:8px 12px;
+            border-radius:8px;
+            margin:4px;
+        `;
+        div.innerHTML = `
+            <strong>${a.title}</strong><br>
+            <span style="font-size:12px; opacity:0.8;">Achieved on ${a.date}</span>
+        `;
+        container.appendChild(div);
+    });
+}
         function updateGoalTimers() {
             const goals = document.querySelectorAll("#goal-list .goal");
 
@@ -2211,6 +2274,7 @@ document.getElementById("countdownCounter").textContent = "0";
             renderMarketplace();
             renderAchievements();
             renderCountdowns();
+            loadAchievements();
             loadData();
             
 
@@ -2320,5 +2384,6 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
