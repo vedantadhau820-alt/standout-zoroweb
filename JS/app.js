@@ -527,11 +527,25 @@ function activateTool(tool) {
 function openTools() {
     document.getElementById("marketplace-cards").style.display = "none";
     document.getElementById("tools").style.display = "block";
+
+    document.getElementById("tabCards").classList.remove("active");
+    document.getElementById("tabTools").classList.add("active");
+
+    // Hide grade filters ONLY while viewing tools
+    document.getElementById("gradeFilterBar").style.display = "none";
+
+    renderTools();
 }
 
 function openMarketplace() {
     document.getElementById("tools").style.display = "none";
     document.getElementById("marketplace-cards").style.display = "block";
+
+    document.getElementById("tabCards").classList.add("active");
+    document.getElementById("tabTools").classList.remove("active");
+
+    // Restore your grade filters
+    document.getElementById("gradeFilterBar").style.display = "flex";
 }
 
 
@@ -2503,6 +2517,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
