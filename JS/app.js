@@ -1794,7 +1794,7 @@ document.getElementById("missionCounter").textContent = "0";
 
         }
 
-        function markGoalAchieved(btn) {
+function markGoalAchieved(btn) {
     const goalDiv = btn.closest(".goal");
     if (!goalDiv || goalDiv.dataset.achieved === "true") return;
 
@@ -1805,10 +1805,22 @@ document.getElementById("missionCounter").textContent = "0";
         year: "numeric"
     });
 
-    // UI Update
     goalDiv.dataset.achieved = "true";
-    goalDiv.style.opacity = "0.6";
-    goalDiv.style.textDecoration = "line-through";
+
+    // Remove ugly strikethrough + blur
+    goalDiv.style.textDecoration = "none";
+    goalDiv.style.opacity = "1";
+
+    // Add proud UI effect
+    goalDiv.classList.add("goal-achieved");
+
+    // Add achievement badge
+    const badge = document.createElement("div");
+    badge.className = "achieved-badge";
+    badge.innerHTML = `🏆 Achieved • ${achievedDate}`;
+    goalDiv.appendChild(badge);
+
+    // Disable button
     btn.disabled = true;
     btn.textContent = "Completed";
 
@@ -1823,14 +1835,15 @@ document.getElementById("missionCounter").textContent = "0";
     logs.push(achievement);
     localStorage.setItem("achievements", JSON.stringify(logs));
 
-    // Show popup
-    pushNotification("Goal Achieved 🎯", `"${title}" completed on ${achievedDate}`);
+    // Fire celebration
+    launchConfetti();
 
-    // Also show in smart popup
+    pushNotification("Goal Achieved 🎯", `"${title}" completed on ${achievedDate}`);
     showSmartNotify("Goal Achieved!", `${title} - ${achievedDate}`);
 
     saveData();
-        }
+}
+        
 
 function loadAchievements() {
     const container = document.getElementById("achievementsViewer");
@@ -2384,6 +2397,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
