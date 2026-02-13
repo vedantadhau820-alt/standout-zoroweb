@@ -242,7 +242,7 @@ function loadProgressFromFile() {
         window.saveProgressToFile = saveProgressToFile;
 window.loadProgressFromFile = loadProgressFromFile;
         
-        const DAILY_IMPROVEMENT_LIMIT = 10;
+        const DAILY_IMPROVEMENT_LIMIT = 70;
 
         let dailyImprovementCount = parseInt(localStorage.getItem("dailyImprovementCount")) || 0;
         let lastImprovementDate = localStorage.getItem("lastImprovementDate") || new Date().toDateString();
@@ -2548,6 +2548,7 @@ function skipDayCheat() {
 
   console.log("⏭ Day skipped to:", nextDayKey);
 };
+
 
 
 
